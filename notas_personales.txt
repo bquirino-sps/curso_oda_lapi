@@ -1,0 +1,18 @@
+Primera pantalla, listado de skills y digital assistant
+Notificaciones, user botón, versionamiento.
+Menú, descargas, documentación.
+Development
+
+
+Crear skill
+Explicar panel izquierdo
+Freemarker y YML
+Estructura de los objetos
+Tipo de transitions
+Crear Intent bienvenida, entrenamiento
+Ejercicio Hola ‘Nombre’
+Explicar seguimiento
+
+
+Crear entities, compose bag
+editar variable nombre, dejar el error

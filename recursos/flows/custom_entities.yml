@@ -1,0 +1,64 @@
+main: true
+name: day_skill
+
+context:
+  variables:
+    datos_personales: "DATOS_PERSONALES"
+    iResult: "nlpresult"
+
+#  state:
+#    component: "TIPO_DE_COMPONENTE"
+#    properties: "PROPIEDADES_DEL_COMPONENTE"
+#    transitions: "ACTIONS, NEXT, RETURN"
+
+states:
+
+#INTENTE BASE
+
+  intent:
+    component: "System.Intent"
+    properties:
+      variable: "iResult"
+    transitions:
+      actions:
+        bienvenida_intent: "bienvenida"
+        unresolvedIntent: "no_entendi"
+
+# INICIA FLUJO DE BIENVENIDA 
+  bienvenida:
+    component: "System.Output"
+    properties:
+      keepTurn: true
+      text: "Hola! Soy BecaBot! :)"
+    transitions:
+      next: "llenado_de_datos"
+      
+  llenado_de_datos:
+    component: "System.ResolveEntities"
+    properties:
+      variable: "datos_personales"
+    transitions:
+      next: "despedida"
+       
+  despedida:
+    component: "System.CommonResponse"
+    properties:
+      keepTurn: true
+      metadata:
+        responseItems:        
+        - type: "text" 
+          text: "Hola ${datos_personales.value['nombre']}"
+    transitions:
+      return: "done"
+  
+ # RESPUESTA PARA INPUTS DESCONOCIDOS
+  no_entendi:
+    component: "System.CommonResponse"
+    properties:
+      keepTurn: true
+      metadata:
+        responseItems:        
+        - type: "text" 
+          text: "No te entendí"
+    transitions:
+      return: "done"

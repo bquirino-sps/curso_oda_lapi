@@ -1,0 +1,69 @@
+main: true
+name: day_skill
+
+context:
+  variables:
+    nombre: "string"
+    iResult: "nlpresult"
+
+#  state:
+#    component: "TIPO_DE_COMPONENTE"
+#    properties: "PROPIEDADES_DEL_COMPONENTE"
+#    transitions: "ACTIONS, NEXT, RETURN"
+
+states:
+
+#INTENTE BASE
+
+  intent:
+    component: "System.Intent"
+    properties:
+      variable: "iResult"
+    transitions:
+      actions:
+        bienvenida_intent: "bienvenida"
+        unresolvedIntent: "no_entendi"
+
+# INICIA FLUJO DE BIENVENIDA 
+  bienvenida:
+    component: "System.Output"
+    properties:
+      keepTurn: true
+      text: "Hola! Soy DayBot! :)"
+    transitions:
+      next: "guardar_nombre"
+  
+  guardar_nombre:
+    component: "System.Text"
+    properties:
+      keepTurn: false
+      prompt: "¿Comó te llamas?"
+      variable: "nombre"
+    transitions:
+      next: "despedida"
+      
+  despedida:
+    component: "System.CommonResponse"
+    properties:
+      keepTurn: true
+      metadata:
+        responseItems:        
+        - type: "text" 
+          text: "Hola ${nombre}"
+    transitions:
+      return: "done"
+  
+ # RESPUESTA PARA INPUTS DESCONOCIDOS
+  no_entendi:
+    component: "System.CommonResponse"
+    properties:
+      keepTurn: true
+      metadata:
+        responseItems:        
+        - type: "text" 
+          text: "No te entendí"
+    transitions:
+      return: "done"
+      
+  
+  
