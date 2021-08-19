@@ -16,3 +16,23 @@ Explicar seguimiento
 
 Crear entities, compose bag
 editar variable nombre, dejar el error
+terminar ejemplo de resolve entitie.
+
+
+
+insertar frgamento de menú
+explicar elementos, botones dinamicos, aviso de privacidad mensaje
+explicar tipos de acciones.
+usar accion url
+explicar dinamismo
+explicar valores harcodeados
+
+agregar intent registro_beca
+explicar diagrama "first"
+explicar proposito second
+crear custom component (datos_personales, estado operacion)
+editar despedida
+ver variables en ODA
+convertir JSON
+explicar posible uso
+expplicar posible conversation

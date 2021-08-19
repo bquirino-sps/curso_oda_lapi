@@ -1,0 +1,123 @@
+main: true
+name: day_skill
+
+context:
+  variables:
+    cardsMenu: "string"
+    datos_personales: "DATOS_PERSONALES"
+    iResult: "nlpresult"
+
+#  state:
+#    component: "TIPO_DE_COMPONENTE"
+#    properties: "PROPIEDADES_DEL_COMPONENTE"
+#    transitions: "ACTIONS, NEXT, RETURN"
+
+states:
+
+#INTENTE BASE
+
+  intent:
+    component: "System.Intent"
+    properties:
+      variable: "iResult"
+    transitions:
+      actions:
+        bienvenida_intent: "setCardsMenuMetadata"
+        unresolvedIntent: "no_entendi"
+
+# INICIA FLUJO DE BIENVENIDA 
+  setCardsMenuMetadata:
+    component: "System.SetVariable"
+    properties:
+      variable: "cardsMenu"
+      value:
+      - name: "Benvenido"
+        description: "Hola, soy BecaBot y te ayudaré a hacer tu registro."
+        imageUrl: "https://github.com/bquirino-sps/curso_oda_aserta/raw/master/recursos/images/becabot.png"
+        website: "http://www.oracle.com"
+        keywords: "registro,beca"
+        action: "registro_action"
+        label_action: "Registro"
+        type_action: "postback"
+      - name: "Aviso de Privacidad"
+        description: "Para conocer nuestro aviso de privacidad da clic aquí"
+        imageUrl: "https://github.com/bquirino-sps/curso_oda_aserta/raw/master/recursos/images/becabot.png"
+        website: "http://www.microsoft.com"
+        keywords: "aviso"
+        action: "aviso_action"
+        type_action: "url"
+        label_action: "Aviso de Privacidad"
+    transitions:
+      next: "cardsMenu"
+  
+  cardsMenu:
+    component: "System.CommonResponse"
+    properties:
+      processUserMessage: true
+      metadata:
+        responseItems:        
+        - type: "cards"
+          cardLayout: "horizontal"
+          cards:
+          - title: "${cardsMenu.name}"
+            #Variable que se itera
+            iteratorVariable: "cardsMenu"
+            description: "${cardsMenu.description}"
+            imageUrl: "${cardsMenu.imageUrl}"
+            cardUrl: "${cardsMenu.website}"   
+            actions:
+            - label: "${cardsMenu.label_action}"
+              type: "${cardsMenu.type_action}"
+              keyword: "${cardsMenu.keywords}"
+              payload:
+                url: "http://www.microsoft.com"
+                action: "${cardsMenu.action}"      
+    transitions:
+      actions:
+        registro_action: "llenado_de_datos"
+        aviso_action: "aviso_privacidad"
+        #textReceived:
+        
+        
+# INICIA FLUJO DE LLENADO DE DATOS
+
+  llenado_de_datos:
+    component: "System.ResolveEntities"
+    properties:
+      variable: "datos_personales"
+    transitions:
+      next: "despedida"
+       
+  despedida:
+    component: "System.CommonResponse"
+    properties:
+      keepTurn: true
+      metadata:
+        responseItems:        
+        - type: "text" 
+          text: "Hola ${datos_personales.value['nombre']}"
+    transitions:
+      return: "done"
+
+  aviso_privacidad:
+    component: "System.CommonResponse"
+    properties:
+      keepTurn: true
+      metadata:
+        responseItems:        
+        - type: "text" 
+          text: "Consulta nuestro aviso de privacidad en http://www.microsoft.com"
+    transitions:
+      return: "done"
+
+ # RESPUESTA PARA INPUTS DESCONOCIDOS
+  no_entendi:
+    component: "System.CommonResponse"
+    properties:
+      keepTurn: true
+      metadata:
+        responseItems:        
+        - type: "text" 
+          text: "No te entendí"
+    transitions:
+      return: "done"
