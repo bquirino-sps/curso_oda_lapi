@@ -35,4 +35,5 @@ editar despedida
 ver variables en ODA
 convertir JSON
 explicar posible uso
-expplicar posible conversation
+explicar posible conversation
+empaquetar componentes

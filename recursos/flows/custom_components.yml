@@ -3,6 +3,7 @@ name: beca_skill
 
 context:
   variables:
+    estado_operacion: "string"
     cardsMenu: "string"
     datos_personales: "DATOS_PERSONALES"
     iResult: "nlpresult"
@@ -15,7 +16,6 @@ context:
 states:
 
 #INTENTE BASE
-
   intent:
     component: "System.Intent"
     properties:
@@ -23,6 +23,7 @@ states:
     transitions:
       actions:
         bienvenida_intent: "setCardsMenuMetadata"
+        registro_beca: "llenado_de_datos"
         unresolvedIntent: "no_entendi"
 
 # INICIA FLUJO DE BIENVENIDA 
@@ -86,8 +87,18 @@ states:
     properties:
       variable: "datos_personales"
     transitions:
-      next: "despedida"
-       
+      next: "registro_datos"
+  
+  registro_datos:
+    component: "registro"
+    properties:
+      datos_personales: "${datos_personales}"
+      estado_operacion: "estado_operacion"
+    transitions:
+      actions:
+        success: "despedida"
+        failure: "defaultError"  
+        
   despedida:
     component: "System.CommonResponse"
     properties:
@@ -95,7 +106,7 @@ states:
       metadata:
         responseItems:        
         - type: "text" 
-          text: "Hola ${datos_personales.value['nombre']}"
+          text: "Ya hemos registrado tus datos ${datos_personales.value['nombre']}"
     transitions:
       return: "done"
 
@@ -119,5 +130,16 @@ states:
         responseItems:        
         - type: "text" 
           text: "No te entendí"
+    transitions:
+      return: "done"
+      
+  defaultError:
+    component: "System.CommonResponse"
+    properties:
+      keepTurn: true
+      metadata:
+        responseItems:        
+        - type: "text" 
+          text: "Lo siento no puedo registrar tus datos por ahora"
     transitions:
       return: "done"

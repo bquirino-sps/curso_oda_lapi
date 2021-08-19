@@ -1,5 +1,5 @@
 main: true
-name: day_skill
+name: beca_skill
 
 context:
   variables:
