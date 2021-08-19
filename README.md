@@ -6,4 +6,4 @@ skills que iremos trabajando ademas de la skill completa
 ```
 
 
-![Diagramas](https://drive.google.com/file/d/186dYG6ystbEryVnbc5FMJ2QaJBRSCJAE/view?usp=sharing)
+[Diagramas](https://drive.google.com/file/d/186dYG6ystbEryVnbc5FMJ2QaJBRSCJAE/view?usp=sharing)
