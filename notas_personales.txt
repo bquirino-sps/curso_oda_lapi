@@ -1,8 +1,11 @@
+## Conceptos básicos
+
 Primera pantalla, listado de skills y digital assistant
 Notificaciones, user botón, versionamiento.
 Menú, descargas, documentación.
 Development
 
+## Primera práctica
 
 Crear skill
 Explicar panel izquierdo
@@ -13,12 +16,13 @@ Crear Intent bienvenida, entrenamiento
 Ejercicio Hola ‘Nombre’
 Explicar seguimiento
 
+## Según práctica
 
 Crear entities, compose bag
 editar variable nombre, dejar el error
 terminar ejemplo de resolve entitie.
 
-
+## Tercera práctica
 
 insertar frgamento de menú
 explicar elementos, botones dinamicos, aviso de privacidad mensaje
@@ -26,6 +30,8 @@ explicar tipos de acciones.
 usar accion url
 explicar dinamismo
 explicar valores harcodeados
+
+## Cuarta Práctica
 
 agregar intent registro_beca
 explicar diagrama "first"
@@ -37,3 +43,25 @@ convertir JSON
 explicar posible uso
 explicar posible conversation
 empaquetar componentes
+
+## Quinta práctica
+
+pasar a codigo
+service handler, logger()
+enganchar
+copiar funcion esAdulto, explicar
+retorar valor de esAdulto en handler
+agregar prompMessage
+empaquetar y enganchar
+ver logs
+
+## Cambio de flujo
+
+cambiar flujo, explicar amarramiento
+diagrama, next y action
+
+
+caracteristicas de los canales
+imagenes siempre en URL, hosteadas
+tipos de URL en facebook
+especificaciones.
