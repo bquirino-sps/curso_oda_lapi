@@ -13,18 +13,39 @@ Freemarker y YML
 Estructura de los objetos
 Tipo de transitions
 Crear Intent bienvenida, entrenamiento
-Ejercicio Hola ‘Nombre’
+Abrir flow de github
+Ejercicio Hola ‘Nombre’ (BIENVENIDA, PERDI NOMBRE, DESPEDIR)
+
+USAR System.TEXT --------------------------------------------------
+
 Explicar seguimiento
 
-## Según práctica
+## Segúnda práctica
 
 Crear entities, compose bag
-editar variable nombre, dejar el error
+
+DAR REPASO
+HABLAR SORE card de skills
+CLONAR MI SKILL
+CODE SHAREIO
+resumen de codigo
+editar variable nombre - datos_personales, 
+agregar resolveentity
+AGREGAR PROMPT A FECHA DE NACIMIENTO Y MAXPROMPS
+dejar el error de nombre en output
+definir otro promp para error
+CURP -- 
+^([A-Z&]|[a-z&]{1})([AEIOU]|[aeiou]{1})([A-Z&]|[a-z&]{1})([A-Z&]|[a-z&]{1})([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([HM]|[hm]{1})([AS|as|BC|bc|BS|bs|CC|cc|CS|cs|CH|ch|CL|cl|CM|cm|DF|df|DG|dg|GT|gt|GR|gr|HG|hg|JC|jc|MC|mc|MN|mn|MS|ms|NT|nt|NL|nl|OC|oc|PL|pl|QT|qt|QR|qr|SP|sp|SL|sl|SR|sr|TC|tc|TS|ts|TL|tl|VZ|vz|YN|yn|ZS|zs|NE|ne]{2})([^A|a|E|e|I|i|O|o|U|u]{1})([^A|a|E|e|I|i|O|o|U|u]{1})([^A|a|E|e|I|i|O|o|U|u]{1})([0-9]{2})$
 terminar ejemplo de resolve entitie.
 
 ## Tercera práctica
 
-insertar frgamento de menú
+insertar fragamento de menú
+for (let item of array) item.description
+BIENVENIDA - AVISO DE PRIVACIDAD
+label_Action,type_action
+https://github.com/bquirino-sps/curso_oda_aserta/raw/master/recursos/images/becabot.png
+(postback, url, share, call, location)
 explicar elementos, botones dinamicos, aviso de privacidad mensaje
 explicar tipos de acciones.
 usar accion url
@@ -33,35 +54,40 @@ explicar valores harcodeados
 
 ## Cuarta Práctica
 
-agregar intent registro_beca
+agregar state registro_beca
 explicar diagrama "first"
 explicar proposito second
-crear custom component (datos_personales, estado operacion)
-editar despedida
+crear custom component (datos_personales, estado_operacion)
+CONTEXT VS CONVERSATION
+editar estado_operacion ambas maneras
+
 ver variables en ODA
+LOGGER Y CLG
+typeof y objeto
+
+FUNCIONAMIENTO DE CC
+FLUJO EN VISUAL
 convertir JSON
 explicar posible uso
 explicar posible conversation
 empaquetar componentes
+DUDAS
+https://oracle.github.io/bots-node-sdk/lib_component_sdk.js.html
 
 ## Quinta práctica
 
-pasar a codigo
-service handler, logger()
-enganchar
-copiar funcion esAdulto, explicar
-retorar valor de esAdulto en handler
-agregar prompMessage
-empaquetar y enganchar
-ver logs
+crear carpeta de handlers
+explcar estructura
+crear nuevo handler
+crear nueva funcion esAdulto
+hablar de funciones interesantes, setItem, skipItem
 
-## Cambio de flujo
-
-cambiar flujo, explicar amarramiento
-diagrama, next y action
-
+## Resolver practicas
 
 caracteristicas de los canales
 imagenes siempre en URL, hosteadas
 tipos de URL en facebook
 especificaciones.
+
+EXPONER SKILL en cannal.
+crear canal web

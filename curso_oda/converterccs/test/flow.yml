@@ -1,0 +1,145 @@
+main: true
+name: beca_bqm_skill
+
+context:
+  variables:
+    datos_personales: "DATOS_PERSONALES"
+    cardsMenu: "string"
+    estado_operacion: "string"
+    iResult: "nlpresult"
+
+#  state:
+#    component: "TIPO_DE_COMPONENTE"
+#    properties: "PROPIEDADES_DEL_COMPONENTE"
+#    transitions: "ACTIONS, NEXT, RETURN, ERROR"
+
+states:
+
+#INTENTE BASE
+
+  intent:
+    component: "System.Intent"
+    properties:
+      variable: "iResult"
+    transitions:
+      actions:
+        bienvenida_intent: "bienvenida"
+        cancelar_intent: "no_entendi"
+        unresolvedIntent: "default_error"
+
+# INICIA FLUJO DE BIENVENIDA 
+
+  bienvenida:
+    component: "System.Output"
+    properties:
+      keepTurn: true
+      text: "Hola! Soy BecaSkill! :)"
+    transitions:
+      next: "setCardsMenuMetadata"
+      
+  setCardsMenuMetadata:
+    component: "System.SetVariable"
+    properties:
+      variable: "cardsMenu"
+      value:
+      - name: "Bienvenida"
+        description: "Hola soy BecaSkill y puedo a ayudarte a solicitar tu beca."
+        imageUrl: "https://github.com/bquirino-sps/curso_oda_aserta/raw/master/recursos/images/becabot.png"
+        website: "http://www.oracle.com"
+        keywords: "bienvenida,registro"
+        label_action: "Registro"
+        type_action: "postback"
+        action: "registro_datos"
+      - name: "Aviso de privacidad"
+        description: "Consulta nuestro aviso de privacidad dando clic abajo."
+        imageUrl: "https://github.com/bquirino-sps/curso_oda_aserta/raw/master/recursos/images/becabot.png"
+        website: "http://www.microsoft.com"
+        keywords: "aviso,privacidad"
+        label_action: "Aviso de privacidad"
+        type_action: "url"
+        action: "mostrar_aviso"
+    transitions:
+      next: "mostrar_menu"
+  
+  mostrar_menu:
+    component: "System.CommonResponse"
+    properties:
+      processUserMessage: true
+      metadata:
+        responseItems:        
+        - type: "cards"
+          cardLayout: "horizontal"
+          cards:
+          # for (let item of cardsMenu) item.name
+          - title: "${cardsMenu.name}"
+            description: "${cardsMenu.description}"
+            imageUrl: "${cardsMenu.imageUrl}"
+            cardUrl: "${cardsMenu.website}"
+            iteratorVariable: "cardsMenu"
+            actions:
+            - label: "${cardsMenu.label_action}"
+              type: "${cardsMenu.type_action}" 
+              keyword: "${cardsMenu.keywords}"
+              payload:
+                action: "${cardsMenu.action}"
+                url: "http://www.microsoft.com"
+                #variables:
+                  #cardsMenuChoice: "${cardsMenu.name}"
+    transitions:
+      actions:
+        registro_datos: "pedir_datos_personales"
+        mostrar_aviso: "pedir_datos_personales" 
+        textReceived: "intent"
+        
+  pedir_datos_personales:
+    component: "System.ResolveEntities"
+    properties:
+      variable: "datos_personales"
+      nlpResultVariable: "iResult"     
+      useFullEntityMatches: true     
+    transitions:
+      next: "guardar_datos"
+
+  guardar_datos:
+    component: "registro_datos"
+    properties:
+      datos_personales: "${datos_personales}"
+      estado_operacion: "estado_operacion"
+    transitions:
+      actions:
+        success: "despedida"
+        failure: "default_error"
+
+  despedida:
+    component: "System.CommonResponse"
+    properties:
+      keepTurn: true
+      metadata:
+        responseItems:        
+        - type: "text" 
+          text: "Ya hemos registrado tus datos, nos vemos pronto ${datos_personales.value['nombre']}"
+    transitions:
+      return: "done"
+  
+ # RESPUESTA PARA INPUTS DESCONOCIDOS
+  no_entendi:
+    component: "System.CommonResponse"
+    properties:
+      keepTurn: true
+      metadata:
+        responseItems:        
+        - type: "text" 
+          text: "No te entendí"
+    transitions:
+      return: "done"
+      
+  default_error:
+    component: "System.CommonResponse"
+    properties:
+      keepTurn: true
+      metadata:
+        responseItems:        
+        - type: "text" 
+          text: "Lo siento aún soy un bot en entrenamiento :("
+    transitions:
+      return: "done"
